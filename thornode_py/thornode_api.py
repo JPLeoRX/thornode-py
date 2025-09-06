@@ -12,6 +12,7 @@ from thornode_py.models.thronode_models_tcy_claimer import THORNodeTcyClaimerRes
 from thornode_py.models.thronode_models_tcy_staker import THORNodeTcyStaker, THORNodeTcyStakersResult
 from thornode_py.models.thronode_models_thorname import THORNodeThorname
 from thornode_py.models.thronode_models_saver import THORNodeSaver
+from thornode_py.models.thronode_models_borrower import THORNodeBorrower
 
 
 class THORNodeAPI:
@@ -237,7 +238,21 @@ class THORNodeAPI:
 
     # Borrowers
     #-------------------------------------------------------------------------------------------------------------------
+    def borrower(self, asset: str, address: str, height: Optional[int] = None) -> THORNodeBorrower:
+        url = f"{self.base_url}/thorchain/pool/{asset}/borrower/{address}"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return THORNodeBorrower.model_validate(data)
 
+    def borrowers(self, asset: str, height: Optional[int] = None) -> list[THORNodeBorrower]:
+        url = f"{self.base_url}/thorchain/pool/{asset}/borrowers"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return [THORNodeBorrower.model_validate(item) for item in data]
     #-------------------------------------------------------------------------------------------------------------------
 
 

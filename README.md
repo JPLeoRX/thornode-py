@@ -24,8 +24,8 @@ Below is the implementation status of the major sections of THORNode API in this
 | TCY Stakers         | ✅          |                               |
 | TCY Claimers        | ✅          |                               |
 | RUNE Pool           | ✅          |                               |
-| Savers              |             |                               |
-| Borrowers           |             |                               |
+| Savers              | ✅          |                               |
+| Borrowers           | ✅          |                               |
 | Transactions        |             |                               |
 | Nodes               | ✅          |                               |
 | Vaults              |             |                               |
