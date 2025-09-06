@@ -1,24 +1,16 @@
 import requests
 from typing import Optional
-from thornode_py.thronode_models import (
-    THORNodePing,
-    THORNodeThorname,
-    THORNodeBalancesResponse,
-    THORNodeAccountsResponse,
-    THORNodePool,
-    THORNodeDerivedPool,
-    THORNodePoolSlip,
-    THORNodeLiquidityProvider,
-    THORNodeLiquidityProviderSummary,
-    THORNodeTCYStaker,
-    THORNodeTCYStakersResult,
-    THORNodeTCYClaimer,
-    THORNodeTCYClaimerResult,
-    THORNodeTCYClaimersResult,
-    THORNodeNode,
-    THORNodeRunePool,
-    THORNodeRuneProvider,
-)
+from thornode_py.thronode_models_auth import THORNodeAccountsResponse
+from thornode_py.thronode_models_bank import THORNodeBalancesResponse
+from thornode_py.thronode_models_health import THORNodePing
+from thornode_py.thronode_models_liquidiry_provider import THORNodeLiquidityProvider, THORNodeLiquidityProviderSummary
+from thornode_py.thronode_models_node import THORNodeNode
+from thornode_py.thronode_models_pool import THORNodePool, THORNodeDerivedPool
+from thornode_py.thronode_models_pool_slip import THORNodePoolSlip
+from thornode_py.thronode_models_rune_pool import THORNodeRunePool, THORNodeRuneProvider
+from thornode_py.thronode_models_tcy_claimer import THORNodeTcyClaimerResult, THORNodeTcyClaimersResult
+from thornode_py.thronode_models_tcy_staker import THORNodeTcyStaker, THORNodeTcyStakersResult
+from thornode_py.thronode_models_thorname import THORNodeThorname
 
 
 class THORNodeAPI:
@@ -121,37 +113,37 @@ class THORNodeAPI:
 
     # TCY Stakers
     #-------------------------------------------------------------------------------------------------------------------
-    def tcy_staker(self, address: str, height: Optional[int] = None) -> THORNodeTCYStaker:
+    def tcy_staker(self, address: str, height: Optional[int] = None) -> THORNodeTcyStaker:
         url = f"{self.base_url}/thorchain/tcy_staker/{address}"
         params = {"height": height} if height is not None else None
         response = requests.get(url, params=params, timeout=self.timeout)
         response.raise_for_status()
         data = response.json()
-        return THORNodeTCYStaker.model_validate(data)
+        return THORNodeTcyStaker.model_validate(data)
 
-    def tcy_stakers(self, height: Optional[int] = None) -> THORNodeTCYStakersResult:
+    def tcy_stakers(self, height: Optional[int] = None) -> THORNodeTcyStakersResult:
         url = f"{self.base_url}/thorchain/tcy_stakers"
         params = {"height": height} if height is not None else None
         response = requests.get(url, params=params, timeout=self.timeout)
         response.raise_for_status()
         data = response.json()
-        return THORNodeTCYStakersResult.model_validate(data)
+        return THORNodeTcyStakersResult.model_validate(data)
 
-    def tcy_claimer(self, address: str, height: Optional[int] = None) -> THORNodeTCYClaimerResult:
+    def tcy_claimer(self, address: str, height: Optional[int] = None) -> THORNodeTcyClaimerResult:
         url = f"{self.base_url}/thorchain/tcy_claimer/{address}"
         params = {"height": height} if height is not None else None
         response = requests.get(url, params=params, timeout=self.timeout)
         response.raise_for_status()
         data = response.json()
-        return THORNodeTCYClaimerResult.model_validate(data)
+        return THORNodeTcyClaimerResult.model_validate(data)
 
-    def tcy_claimers(self, height: Optional[int] = None) -> THORNodeTCYClaimersResult:
+    def tcy_claimers(self, height: Optional[int] = None) -> THORNodeTcyClaimersResult:
         url = f"{self.base_url}/thorchain/tcy_claimers"
         params = {"height": height} if height is not None else None
         response = requests.get(url, params=params, timeout=self.timeout)
         response.raise_for_status()
         data = response.json()
-        return THORNodeTCYClaimersResult.model_validate(data)
+        return THORNodeTcyClaimersResult.model_validate(data)
     #-------------------------------------------------------------------------------------------------------------------
 
 
