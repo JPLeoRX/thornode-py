@@ -26,7 +26,7 @@ Below is the implementation status of the major sections of THORNode API in this
 | RUNE Pool           | ✅          |                               |
 | Savers              | ✅          |                               |
 | Borrowers           | ✅          |                               |
-| Transactions        |             |                               |
+| Transactions        | ✅          |                               |
 | Nodes               | ✅          |                               |
 | Vaults              |             |                               |
 | Network             |             |                               |

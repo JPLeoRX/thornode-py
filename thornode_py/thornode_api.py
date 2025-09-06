@@ -13,6 +13,12 @@ from thornode_py.models.thronode_models_tcy_staker import THORNodeTcyStaker, THO
 from thornode_py.models.thronode_models_thorname import THORNodeThorname
 from thornode_py.models.thronode_models_saver import THORNodeSaver
 from thornode_py.models.thronode_models_borrower import THORNodeBorrower
+from thornode_py.models.thronode_models_transaction import (
+    THORNodeTxResponse,
+    THORNodeTxDetailsResponse,
+    THORNodeTxStagesResponse,
+    THORNodeTxStatusResponse,
+)
 
 
 class THORNodeAPI:
@@ -259,7 +265,45 @@ class THORNodeAPI:
 
     # Transactions
     #-------------------------------------------------------------------------------------------------------------------
+    def tx(self, hash: str, height: Optional[int] = None) -> THORNodeTxResponse:
+        url = f"{self.base_url}/thorchain/tx/{hash}"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return THORNodeTxResponse.model_validate(data)
 
+    def tx_signers(self, hash: str, height: Optional[int] = None) -> THORNodeTxDetailsResponse:
+        url = f"{self.base_url}/thorchain/tx/{hash}/signers"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return THORNodeTxDetailsResponse.model_validate(data)
+
+    def tx_details(self, hash: str, height: Optional[int] = None) -> THORNodeTxDetailsResponse:
+        url = f"{self.base_url}/thorchain/tx/details/{hash}"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return THORNodeTxDetailsResponse.model_validate(data)
+
+    def tx_stages(self, hash: str, height: Optional[int] = None) -> THORNodeTxStagesResponse:
+        url = f"{self.base_url}/thorchain/tx/stages/{hash}"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return THORNodeTxStagesResponse.model_validate(data)
+
+    def tx_status(self, hash: str, height: Optional[int] = None) -> THORNodeTxStatusResponse:
+        url = f"{self.base_url}/thorchain/tx/status/{hash}"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return THORNodeTxStatusResponse.model_validate(data)
     #-------------------------------------------------------------------------------------------------------------------
 
 
