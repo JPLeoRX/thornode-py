@@ -14,5 +14,13 @@ print(api.ping())
 print("Thornames:")
 print(api.thorname("rapidoswaps"))
 
+print("Pools:")
+print(len(api.pools()))
+print(api.pool("BTC.BTC"))
+
+print("Derived Pools:")
+print(len(api.dpools()))
+print(api.dpool("THOR.BTC"))
+
 
 

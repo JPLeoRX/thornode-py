@@ -5,6 +5,8 @@ from thornode_py.thronode_models import (
     THORNodeThorname,
     THORNodeBalancesResponse,
     THORNodeAccountsResponse,
+    THORNodePool,
+    THORNodeDerivedPool,
 )
 
 
@@ -48,3 +50,37 @@ class THORNodeAPI:
         data = response.json()
         return THORNodeThorname.model_validate(data)
 
+    # Pools
+    #-------------------------------------------------------------------------------------------------------------------
+    def pool(self, asset: str, height: Optional[int] = None) -> THORNodePool:
+        url = f"{self.base_url}/thorchain/pool/{asset}"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return THORNodePool.model_validate(data)
+
+    def pools(self, height: Optional[int] = None) -> list[THORNodePool]:
+        url = f"{self.base_url}/thorchain/pools"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return [THORNodePool.model_validate(item) for item in data]
+
+    def dpool(self, asset: str, height: Optional[int] = None) -> THORNodeDerivedPool:
+        url = f"{self.base_url}/thorchain/dpool/{asset}"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return THORNodeDerivedPool.model_validate(data)
+
+    def dpools(self, height: Optional[int] = None) -> list[THORNodeDerivedPool]:
+        url = f"{self.base_url}/thorchain/dpools"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return [THORNodeDerivedPool.model_validate(item) for item in data]
+    #-------------------------------------------------------------------------------------------------------------------
