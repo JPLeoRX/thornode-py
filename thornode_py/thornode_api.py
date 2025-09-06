@@ -19,6 +19,7 @@ class THORNodeAPI:
         self.timeout = timeout
 
     # Auth
+    #-------------------------------------------------------------------------------------------------------------------
     def accounts(self, address: str, height: Optional[int] = None) -> THORNodeAccountsResponse:
         url = f"{self.base_url}/auth/accounts/{address}"
         params = {"height": height} if height is not None else None
@@ -26,8 +27,12 @@ class THORNodeAPI:
         response.raise_for_status()
         data = response.json()
         return THORNodeAccountsResponse.model_validate(data)
+    #-------------------------------------------------------------------------------------------------------------------
+
+
 
     # Bank
+    #-------------------------------------------------------------------------------------------------------------------
     def balances(self, address: str, height: Optional[int] = None) -> THORNodeBalancesResponse:
         url = f"{self.base_url}/bank/balances/{address}"
         params = {"height": height} if height is not None else None
@@ -35,14 +40,19 @@ class THORNodeAPI:
         response.raise_for_status()
         data = response.json()
         return THORNodeBalancesResponse.model_validate(data)
+    #-------------------------------------------------------------------------------------------------------------------
+
+
 
     # Health
+    #-------------------------------------------------------------------------------------------------------------------
     def ping(self) -> THORNodePing:
         url = f"{self.base_url}/thorchain/ping"
         response = requests.get(url, timeout=self.timeout)
         response.raise_for_status()
         data = response.json()
         return THORNodePing.model_validate(data)
+    #-------------------------------------------------------------------------------------------------------------------
 
     # Thornames
     def thorname(self, name: str, height: Optional[int] = None) -> THORNodeThorname:
