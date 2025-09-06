@@ -13,37 +13,37 @@ Below is the implementation status of the major sections of THORNode API in this
 
 | Section             | Implemented |
 |---------------------|-------------|
-| auth                | ✅          |
-| bank                | ✅          |
-| health              | ✅          |
-| pools               | ✅          |
-| pool slip           | ✅          |
-| liquidity providers |             |
-| codes               |             |
-| oracle              |             |
-| tcy stakers         |             |
-| tcy claimers        |             |
-| rune pool           |             |
-| savers              |             |
-| loans               |             |
-| transactions        |             |
-| nodes               |             |
-| vaults              |             |
-| network             |             |
-| clout               |             |
-| trade unit          |             |
-| trade account       |             |
-| secured assets      |             |
-| swap                |             |
-| queue               |             |
-| tss                 |             |
-| tss metrics         |             |
-| thornames           | ✅          |
-| mimir               |             |
-| quotes              |             |
-| invariants          |             |
-| block               |             |
-| parameters          |             |
+| Auth                | ✅           |
+| Bank                | ✅           |
+| Health              | ✅           |
+| Pools               | ✅           |
+| Pool Slip           | ✅           |
+| Liquidity Providers |             |
+| Codes               |             |
+| Oracle              |             |
+| TCY Stakers         |             |
+| TCY Claimers        |             |
+| RUNE Pool           |             |
+| Savers              |             |
+| Borrowers           |             |
+| Transactions        |             |
+| Nodes               |             |
+| Vaults              |             |
+| Network             |             |
+| Streaming Swap      |             |
+| Clout               |             |
+| Trade Unit          |             |
+| Trade Account       |             |
+| Secured Assets      |             |
+| Swap                |             |
+| Queue               |             |
+| TSS                 |             |
+| Thornames           | ✅          |
+| Mimir               |             |
+| Quote               |             |
+| Invariants          |             |
+| Block               |             |
+| Export              |             |
 
 If you notice any discrepancy or want a section prioritized, please open an issue or PR.
 
