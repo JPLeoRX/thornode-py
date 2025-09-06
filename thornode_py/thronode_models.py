@@ -31,6 +31,25 @@ class THORNodeBalanceAmount(BaseModel):
     amount: str
 
 
-class THORNodeBalances(BaseModel):
+class THORNodeBalancesResponse(BaseModel):
     result: List[THORNodeBalanceAmount]
+#-----------------------------------------------------------------------------------------------------------------------
+
+
+
+# Auth
+#-----------------------------------------------------------------------------------------------------------------------
+class THORNodeAccount(BaseModel):
+    address: str
+    pub_key: str
+    account_number: str
+    sequence: str
+
+
+class THORNodeAccountResult(BaseModel):
+    value: THORNodeAccount
+
+
+class THORNodeAccountsResponse(BaseModel):
+    result: THORNodeAccountResult
 #-----------------------------------------------------------------------------------------------------------------------

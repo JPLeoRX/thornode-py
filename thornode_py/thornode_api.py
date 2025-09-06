@@ -3,7 +3,8 @@ from typing import Optional
 from thornode_py.thronode_models import (
     THORNodePing,
     THORNodeThorname,
-    THORNodeBalances,
+    THORNodeBalancesResponse,
+    THORNodeAccountsResponse,
 )
 
 
@@ -12,14 +13,23 @@ class THORNodeAPI:
         self.base_url = base_url
         self.timeout = timeout
 
+    # Auth
+    def accounts(self, address: str, height: Optional[int] = None) -> THORNodeAccountsResponse:
+        url = f"{self.base_url}/auth/accounts/{address}"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return THORNodeAccountsResponse.model_validate(data)
+
     # Bank
-    def balances(self, address: str, height: Optional[int] = None) -> THORNodeBalances:
+    def balances(self, address: str, height: Optional[int] = None) -> THORNodeBalancesResponse:
         url = f"{self.base_url}/bank/balances/{address}"
         params = {"height": height} if height is not None else None
         response = requests.get(url, params=params, timeout=self.timeout)
         response.raise_for_status()
         data = response.json()
-        return THORNodeBalances.model_validate(data)
+        return THORNodeBalancesResponse.model_validate(data)
 
     # Health
     def ping(self) -> THORNodePing:
