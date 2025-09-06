@@ -8,6 +8,10 @@ from thornode_py.thronode_models import (
     THORNodePool,
     THORNodeDerivedPool,
     THORNodePoolSlip,
+    THORNodeLiquidityProvider,
+    THORNodeLiquidityProviderSummary,
+    THORNodeTCYStaker,
+    THORNodeTCYStakersResult
 )
 
 
@@ -105,4 +109,46 @@ class THORNodeAPI:
         response.raise_for_status()
         data = response.json()
         return [THORNodePoolSlip.model_validate(item) for item in data]
+    #-------------------------------------------------------------------------------------------------------------------
+
+
+
+    # TCY Stakers
+    #-------------------------------------------------------------------------------------------------------------------
+    def tcy_staker(self, address: str, height: Optional[int] = None) -> THORNodeTCYStaker:
+        url = f"{self.base_url}/thorchain/tcy_staker/{address}"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return THORNodeTCYStaker.model_validate(data)
+
+    def tcy_stakers(self, height: Optional[int] = None) -> THORNodeTCYStakersResult:
+        url = f"{self.base_url}/thorchain/tcy_stakers"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return THORNodeTCYStakersResult.model_validate(data)
+    #-------------------------------------------------------------------------------------------------------------------
+
+
+
+    # Liquidity Providers
+    #-------------------------------------------------------------------------------------------------------------------
+    def liquidity_provider(self, asset: str, address: str, height: Optional[int] = None) -> THORNodeLiquidityProvider:
+        url = f"{self.base_url}/thorchain/pool/{asset}/liquidity_provider/{address}"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return THORNodeLiquidityProvider.model_validate(data)
+
+    def liquidity_providers(self, asset: str, height: Optional[int] = None) -> list[THORNodeLiquidityProviderSummary]:
+        url = f"{self.base_url}/thorchain/pool/{asset}/liquidity_providers"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return [THORNodeLiquidityProviderSummary.model_validate(item) for item in data]
     #-------------------------------------------------------------------------------------------------------------------

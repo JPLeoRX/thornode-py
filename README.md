@@ -18,10 +18,10 @@ Below is the implementation status of the major sections of THORNode API in this
 | Health              | ✅           |                               |
 | Pools               | ✅           |                               |
 | Pool Slip           | ✅           |                               |
-| Liquidity Providers |             |                               |
+| Liquidity Providers | ✅          |                               |
 | Codes               |             | Not supported in current API  |
 | Oracle              |             | Not supported in current API  |
-| TCY Stakers         |             |                               |
+| TCY Stakers         | ✅          |                               |
 | TCY Claimers        |             |                               |
 | RUNE Pool           |             |                               |
 | Savers              |             |                               |
