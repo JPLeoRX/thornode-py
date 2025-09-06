@@ -42,3 +42,9 @@ print(f"TCY Claimer: api.tcy_claimers() call found {len(tcy_claimers.tcy_claimer
 tcy_claimer = api.tcy_claimer(tcy_claimers.tcy_claimers[0].l1_address)
 print(f"TCY Claimer: api.tcy_claimer() call found {tcy_claimer} result")
 
+
+# Nodes
+nodes = api.nodes()
+print(f"Nodes: api.nodes() found {len(nodes)} validators")
+node_info = api.node(nodes[0].node_address)
+print(f"Node: api.node() fetched node with address {node_info.node_address} and status {node_info.status}")

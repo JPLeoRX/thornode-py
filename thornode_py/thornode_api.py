@@ -14,7 +14,8 @@ from thornode_py.thronode_models import (
     THORNodeTCYStakersResult,
     THORNodeTCYClaimer,
     THORNodeTCYClaimerResult,
-    THORNodeTCYClaimersResult
+    THORNodeTCYClaimersResult,
+    THORNodeNode
 )
 
 
@@ -149,6 +150,27 @@ class THORNodeAPI:
         response.raise_for_status()
         data = response.json()
         return THORNodeTCYClaimersResult.model_validate(data)
+    #-------------------------------------------------------------------------------------------------------------------
+
+
+
+    # Nodes
+    #-------------------------------------------------------------------------------------------------------------------
+    def node(self, address: str, height: Optional[int] = None) -> THORNodeNode:
+        url = f"{self.base_url}/thorchain/node/{address}"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return THORNodeNode.model_validate(data)
+
+    def nodes(self, height: Optional[int] = None) -> list[THORNodeNode]:
+        url = f"{self.base_url}/thorchain/nodes"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return [THORNodeNode.model_validate(item) for item in data]
     #-------------------------------------------------------------------------------------------------------------------
 
 
