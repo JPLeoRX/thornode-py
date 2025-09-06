@@ -18,7 +18,7 @@ class THORNodeTx(BaseModel):
     memo: Optional[str] = None
 
 
-class THORNodeObservedTx(BaseModel):
+class THORNodeTxObserved(BaseModel):
     tx: THORNodeTx
     observed_pub_key: Optional[str] = None
     observed_pub_key_eddsa: Optional[str] = None
@@ -33,7 +33,7 @@ class THORNodeObservedTx(BaseModel):
     status: Optional[str] = None
 
 
-class THORNodeTxOutItem(BaseModel):
+class THORNodeTxAction(BaseModel):
     height: Optional[int] = None
     in_hash: Optional[str] = None
     out_hash: Optional[str] = None
@@ -56,24 +56,24 @@ class THORNodeTssMetric(BaseModel):
     tss_time: Optional[int] = None
 
 
-class THORNodeTssKeysignMetric(BaseModel):
+class THORNodeTxKeysignMetric(BaseModel):
     tx_id: Optional[str] = None
     node_tss_times: Optional[List[THORNodeTssMetric]] = []
 
 
 class THORNodeTxResponse(BaseModel):
-    observed_tx: Optional[THORNodeObservedTx] = None
+    observed_tx: Optional[THORNodeTxObserved] = None
     consensus_height: Optional[int] = None
     finalised_height: Optional[int] = None
     outbound_height: Optional[int] = None
-    keysign_metric: Optional[THORNodeTssKeysignMetric] = None
+    keysign_metric: Optional[THORNodeTxKeysignMetric] = None
 
 
 class THORNodeTxDetailsResponse(BaseModel):
     tx_id: Optional[str] = None
-    tx: THORNodeObservedTx
-    txs: List[THORNodeObservedTx]
-    actions: List[THORNodeTxOutItem]
+    tx: THORNodeTxObserved
+    txs: List[THORNodeTxObserved]
+    actions: List[THORNodeTxAction]
     out_txs: List[THORNodeTx]
     consensus_height: Optional[int] = None
     finalised_height: Optional[int] = None
@@ -127,7 +127,7 @@ class THORNodeTxStagesResponse(BaseModel):
     outbound_signed: Optional[THORNodeTxStagesOutboundSigned] = None
 
 
-class THORNodePlannedOutTx(BaseModel):
+class THORNodeTxPlannedOut(BaseModel):
     chain: str
     to_address: str
     coin: THORNodeCoin
@@ -136,6 +136,6 @@ class THORNodePlannedOutTx(BaseModel):
 
 class THORNodeTxStatusResponse(BaseModel):
     tx: Optional[THORNodeTx] = None
-    planned_out_txs: Optional[List[THORNodePlannedOutTx]] = None
+    planned_out_txs: Optional[List[THORNodeTxPlannedOut]] = None
     out_txs: Optional[List[THORNodeTx]] = None
     stages: THORNodeTxStagesResponse
