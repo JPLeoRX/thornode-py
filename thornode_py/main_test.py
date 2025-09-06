@@ -48,3 +48,13 @@ nodes = api.nodes()
 print(f"Nodes: api.nodes() found {len(nodes)} validators")
 node_info = api.node(nodes[0].node_address)
 print(f"Node: api.node() fetched node with address {node_info.node_address} and status {node_info.status}")
+
+# RUNE Pool
+runepool = api.runepool()
+print(f"RUNE Pool: api.runepool() returned {runepool}")
+
+# RUNE Providers
+providers = api.rune_providers()
+print(f"RUNE Providers: api.rune_providers() found {len(providers)} total")
+provider_detail = api.rune_provider(providers[0].rune_address)
+print(f"RUNE Provider: api.rune_provider() found {provider_detail} result")

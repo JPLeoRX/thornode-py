@@ -23,7 +23,7 @@ Below is the implementation status of the major sections of THORNode API in this
 | Oracle              |             | Not supported in current API  |
 | TCY Stakers         | ✅          |                               |
 | TCY Claimers        | ✅          |                               |
-| RUNE Pool           |             |                               |
+| RUNE Pool           | ✅          |                               |
 | Savers              |             |                               |
 | Borrowers           |             |                               |
 | Transactions        |             |                               |

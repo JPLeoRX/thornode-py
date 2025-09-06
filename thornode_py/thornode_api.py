@@ -15,7 +15,9 @@ from thornode_py.thronode_models import (
     THORNodeTCYClaimer,
     THORNodeTCYClaimerResult,
     THORNodeTCYClaimersResult,
-    THORNodeNode
+    THORNodeNode,
+    THORNodeRunePool,
+    THORNodeRuneProvider,
 )
 
 
@@ -192,4 +194,33 @@ class THORNodeAPI:
         response.raise_for_status()
         data = response.json()
         return [THORNodeLiquidityProviderSummary.model_validate(item) for item in data]
+    #-------------------------------------------------------------------------------------------------------------------
+
+
+
+    # RUNE Pool & RUNE Providers
+    #-------------------------------------------------------------------------------------------------------------------
+    def runepool(self, height: Optional[int] = None) -> THORNodeRunePool:
+        url = f"{self.base_url}/thorchain/runepool"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return THORNodeRunePool.model_validate(data)
+
+    def rune_provider(self, address: str, height: Optional[int] = None) -> THORNodeRuneProvider:
+        url = f"{self.base_url}/thorchain/rune_provider/{address}"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return THORNodeRuneProvider.model_validate(data)
+
+    def rune_providers(self, height: Optional[int] = None) -> list[THORNodeRuneProvider]:
+        url = f"{self.base_url}/thorchain/rune_providers"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return [THORNodeRuneProvider.model_validate(item) for item in data]
     #-------------------------------------------------------------------------------------------------------------------
