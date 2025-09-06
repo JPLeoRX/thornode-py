@@ -36,3 +36,9 @@ print(f"TCY Staker: api.tcy_stakers() call found {len(tcy_stakers.tcy_stakers)} 
 tcy_staker = api.tcy_staker(tcy_stakers.tcy_stakers[0].address)
 print(f"TCY Staker: api.tcy_staker() call found {tcy_staker} result")
 
+# TCY Claimers
+tcy_claimers = api.tcy_claimers()
+print(f"TCY Claimer: api.tcy_claimers() call found {len(tcy_claimers.tcy_claimers)} results")
+tcy_claimer = api.tcy_claimer(tcy_claimers.tcy_claimers[0].l1_address)
+print(f"TCY Claimer: api.tcy_claimer() call found {tcy_claimer} result")
+

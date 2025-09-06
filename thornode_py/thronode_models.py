@@ -120,6 +120,23 @@ class THORNodeTCYStakersResult(BaseModel):
 
 
 
+# TCY Claimers
+#-----------------------------------------------------------------------------------------------------------------------
+class THORNodeTCYClaimer(BaseModel):
+    l1_address: Optional[str] = None
+    amount: str
+    asset: str
+
+
+class THORNodeTCYClaimersResult(BaseModel):
+    tcy_claimers: List[THORNodeTCYClaimer]
+
+class THORNodeTCYClaimerResult(BaseModel):
+    tcy_claimer: List[THORNodeTCYClaimer]
+#-----------------------------------------------------------------------------------------------------------------------
+
+
+
 # Liquidity Providers
 #-----------------------------------------------------------------------------------------------------------------------
 class THORNodeLiquidityProviderSummary(BaseModel):

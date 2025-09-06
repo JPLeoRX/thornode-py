@@ -11,7 +11,10 @@ from thornode_py.thronode_models import (
     THORNodeLiquidityProvider,
     THORNodeLiquidityProviderSummary,
     THORNodeTCYStaker,
-    THORNodeTCYStakersResult
+    THORNodeTCYStakersResult,
+    THORNodeTCYClaimer,
+    THORNodeTCYClaimerResult,
+    THORNodeTCYClaimersResult
 )
 
 
@@ -130,6 +133,22 @@ class THORNodeAPI:
         response.raise_for_status()
         data = response.json()
         return THORNodeTCYStakersResult.model_validate(data)
+
+    def tcy_claimer(self, address: str, height: Optional[int] = None) -> THORNodeTCYClaimerResult:
+        url = f"{self.base_url}/thorchain/tcy_claimer/{address}"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return THORNodeTCYClaimerResult.model_validate(data)
+
+    def tcy_claimers(self, height: Optional[int] = None) -> THORNodeTCYClaimersResult:
+        url = f"{self.base_url}/thorchain/tcy_claimers"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return THORNodeTCYClaimersResult.model_validate(data)
     #-------------------------------------------------------------------------------------------------------------------
 
 
