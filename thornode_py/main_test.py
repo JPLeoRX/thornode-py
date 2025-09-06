@@ -22,5 +22,9 @@ print("Derived Pools:")
 print(len(api.dpools()))
 print(api.dpool("THOR.BTC"))
 
+print("Pool Slips:")
+print(len(api.slips()))
+print(api.slip("BTC.BTC"))
+
 
 

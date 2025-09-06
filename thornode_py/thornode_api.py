@@ -7,6 +7,7 @@ from thornode_py.thronode_models import (
     THORNodeAccountsResponse,
     THORNodePool,
     THORNodeDerivedPool,
+    THORNodePoolSlip,
 )
 
 
@@ -83,4 +84,25 @@ class THORNodeAPI:
         response.raise_for_status()
         data = response.json()
         return [THORNodeDerivedPool.model_validate(item) for item in data]
+    #-------------------------------------------------------------------------------------------------------------------
+
+
+
+    # Pool Slips
+    #-------------------------------------------------------------------------------------------------------------------
+    def slip(self, asset: str, height: Optional[int] = None) -> list[THORNodePoolSlip]:
+        url = f"{self.base_url}/thorchain/slip/{asset}"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return [THORNodePoolSlip.model_validate(item) for item in data]
+
+    def slips(self, height: Optional[int] = None) -> list[THORNodePoolSlip]:
+        url = f"{self.base_url}/thorchain/slips"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return [THORNodePoolSlip.model_validate(item) for item in data]
     #-------------------------------------------------------------------------------------------------------------------

@@ -17,13 +17,13 @@ Below is the implementation status of the major sections of THORNode API in this
 | bank                | ✅          |
 | health              | ✅          |
 | pools               | ✅          |
-| pool slip           |             |
+| pool slip           | ✅          |
 | liquidity providers |             |
 | codes               |             |
+| oracle              |             |
 | tcy stakers         |             |
 | tcy claimers        |             |
 | rune pool           |             |
-| rune providers      |             |
 | savers              |             |
 | loans               |             |
 | transactions        |             |

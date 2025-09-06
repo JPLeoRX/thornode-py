@@ -92,3 +92,16 @@ class THORNodeDerivedPool(BaseModel):
     balance_rune: str
     derived_depth_bps: str
 #-----------------------------------------------------------------------------------------------------------------------
+
+
+
+# Pool Slips
+#-----------------------------------------------------------------------------------------------------------------------
+class THORNodePoolSlip(BaseModel):
+    asset: str
+    pool_slip: int
+    rollup_count: int
+    long_rollup: int
+    rollup: int
+    summed_rollup: Optional[int] = None
+#-----------------------------------------------------------------------------------------------------------------------
