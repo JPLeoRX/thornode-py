@@ -100,7 +100,7 @@ class THORNodeAPI:
 
 
 
-    # Pool Slips
+    # Pool Slip
     #-------------------------------------------------------------------------------------------------------------------
     def slip(self, asset: str, height: Optional[int] = None) -> list[THORNodePoolSlip]:
         url = f"{self.base_url}/thorchain/slip/{asset}"
@@ -117,64 +117,6 @@ class THORNodeAPI:
         response.raise_for_status()
         data = response.json()
         return [THORNodePoolSlip.model_validate(item) for item in data]
-    #-------------------------------------------------------------------------------------------------------------------
-
-
-
-    # TCY Stakers
-    #-------------------------------------------------------------------------------------------------------------------
-    def tcy_staker(self, address: str, height: Optional[int] = None) -> THORNodeTcyStaker:
-        url = f"{self.base_url}/thorchain/tcy_staker/{address}"
-        params = {"height": height} if height is not None else None
-        response = requests.get(url, params=params, timeout=self.timeout)
-        response.raise_for_status()
-        data = response.json()
-        return THORNodeTcyStaker.model_validate(data)
-
-    def tcy_stakers(self, height: Optional[int] = None) -> THORNodeTcyStakersResult:
-        url = f"{self.base_url}/thorchain/tcy_stakers"
-        params = {"height": height} if height is not None else None
-        response = requests.get(url, params=params, timeout=self.timeout)
-        response.raise_for_status()
-        data = response.json()
-        return THORNodeTcyStakersResult.model_validate(data)
-
-    def tcy_claimer(self, address: str, height: Optional[int] = None) -> THORNodeTcyClaimerResult:
-        url = f"{self.base_url}/thorchain/tcy_claimer/{address}"
-        params = {"height": height} if height is not None else None
-        response = requests.get(url, params=params, timeout=self.timeout)
-        response.raise_for_status()
-        data = response.json()
-        return THORNodeTcyClaimerResult.model_validate(data)
-
-    def tcy_claimers(self, height: Optional[int] = None) -> THORNodeTcyClaimersResult:
-        url = f"{self.base_url}/thorchain/tcy_claimers"
-        params = {"height": height} if height is not None else None
-        response = requests.get(url, params=params, timeout=self.timeout)
-        response.raise_for_status()
-        data = response.json()
-        return THORNodeTcyClaimersResult.model_validate(data)
-    #-------------------------------------------------------------------------------------------------------------------
-
-
-
-    # Nodes
-    #-------------------------------------------------------------------------------------------------------------------
-    def node(self, address: str, height: Optional[int] = None) -> THORNodeNode:
-        url = f"{self.base_url}/thorchain/node/{address}"
-        params = {"height": height} if height is not None else None
-        response = requests.get(url, params=params, timeout=self.timeout)
-        response.raise_for_status()
-        data = response.json()
-        return THORNodeNode.model_validate(data)
-
-    def nodes(self, height: Optional[int] = None) -> list[THORNodeNode]:
-        url = f"{self.base_url}/thorchain/nodes"
-        params = {"height": height} if height is not None else None
-        response = requests.get(url, params=params, timeout=self.timeout)
-        response.raise_for_status()
-        data = response.json()
-        return [THORNodeNode.model_validate(item) for item in data]
     #-------------------------------------------------------------------------------------------------------------------
 
 
@@ -200,7 +142,49 @@ class THORNodeAPI:
 
 
 
-    # RUNE Pool & RUNE Providers
+    # TCY Stakers
+    #-------------------------------------------------------------------------------------------------------------------
+    def tcy_staker(self, address: str, height: Optional[int] = None) -> THORNodeTcyStaker:
+        url = f"{self.base_url}/thorchain/tcy_staker/{address}"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return THORNodeTcyStaker.model_validate(data)
+
+    def tcy_stakers(self, height: Optional[int] = None) -> THORNodeTcyStakersResult:
+        url = f"{self.base_url}/thorchain/tcy_stakers"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return THORNodeTcyStakersResult.model_validate(data)
+    #-------------------------------------------------------------------------------------------------------------------
+
+
+
+    # TCY Claimers
+    #-------------------------------------------------------------------------------------------------------------------
+    def tcy_claimer(self, address: str, height: Optional[int] = None) -> THORNodeTcyClaimerResult:
+        url = f"{self.base_url}/thorchain/tcy_claimer/{address}"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return THORNodeTcyClaimerResult.model_validate(data)
+
+    def tcy_claimers(self, height: Optional[int] = None) -> THORNodeTcyClaimersResult:
+        url = f"{self.base_url}/thorchain/tcy_claimers"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return THORNodeTcyClaimersResult.model_validate(data)
+    #-------------------------------------------------------------------------------------------------------------------
+
+
+
+    # RUNE Pool
     #-------------------------------------------------------------------------------------------------------------------
     def runepool(self, height: Optional[int] = None) -> THORNodeRunePool:
         url = f"{self.base_url}/thorchain/runepool"
@@ -225,4 +209,53 @@ class THORNodeAPI:
         response.raise_for_status()
         data = response.json()
         return [THORNodeRuneProvider.model_validate(item) for item in data]
+    #-------------------------------------------------------------------------------------------------------------------
+
+
+
+    # Savers
+    #-------------------------------------------------------------------------------------------------------------------
+
+    #-------------------------------------------------------------------------------------------------------------------
+
+
+
+    # Borrowers
+    #-------------------------------------------------------------------------------------------------------------------
+
+    #-------------------------------------------------------------------------------------------------------------------
+
+
+
+    # Transactions
+    #-------------------------------------------------------------------------------------------------------------------
+
+    #-------------------------------------------------------------------------------------------------------------------
+
+
+
+    # Nodes
+    #-------------------------------------------------------------------------------------------------------------------
+    def node(self, address: str, height: Optional[int] = None) -> THORNodeNode:
+        url = f"{self.base_url}/thorchain/node/{address}"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return THORNodeNode.model_validate(data)
+
+    def nodes(self, height: Optional[int] = None) -> list[THORNodeNode]:
+        url = f"{self.base_url}/thorchain/nodes"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return [THORNodeNode.model_validate(item) for item in data]
+    #-------------------------------------------------------------------------------------------------------------------
+
+
+
+    # Vaults
+    #-------------------------------------------------------------------------------------------------------------------
+
     #-------------------------------------------------------------------------------------------------------------------
