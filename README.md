@@ -28,7 +28,7 @@ Below is the implementation status of the major sections of THORNode API in this
 | Borrowers           | ✅          |                               |
 | Transactions        | ✅          |                               |
 | Nodes               | ✅          |                               |
-| Vaults              |             |                               |
+| Vaults              | ✅          |                               |
 | Network             |             |                               |
 | Streaming Swap      |             |                               |
 | Clout               |             |                               |

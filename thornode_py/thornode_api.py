@@ -19,6 +19,11 @@ from thornode_py.models.thronode_models_transaction import (
     THORNodeTxStagesResponse,
     THORNodeTxStatusResponse,
 )
+from thornode_py.models.thronode_models_vault import (
+    THORNodeVault,
+    THORNodeVaultYggdrasil,
+    THORNodeVaultPubkeysResponse,
+)
 
 
 class THORNodeAPI:
@@ -331,5 +336,36 @@ class THORNodeAPI:
 
     # Vaults
     #-------------------------------------------------------------------------------------------------------------------
+    def vaults_asgard(self, height: Optional[int] = None) -> list[THORNodeVault]:
+        url = f"{self.base_url}/thorchain/vaults/asgard"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return [THORNodeVault.model_validate(item) for item in data]
 
+    # NOTE: Currently not implemented
+    def vaults_yggdrasil(self, height: Optional[int] = None) -> list[THORNodeVaultYggdrasil]:
+        url = f"{self.base_url}/thorchain/vaults/yggdrasil"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return [THORNodeVaultYggdrasil.model_validate(item) for item in data]
+
+    def vault(self, pubkey: str, height: Optional[int] = None) -> THORNodeVault:
+        url = f"{self.base_url}/thorchain/vault/{pubkey}"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return THORNodeVault.model_validate(data)
+
+    def vault_pubkeys(self, height: Optional[int] = None) -> THORNodeVaultPubkeysResponse:
+        url = f"{self.base_url}/thorchain/vaults/pubkeys"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return THORNodeVaultPubkeysResponse.model_validate(data)
     #-------------------------------------------------------------------------------------------------------------------
