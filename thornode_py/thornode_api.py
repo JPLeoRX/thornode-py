@@ -11,6 +11,7 @@ from thornode_py.models.thronode_models_rune_pool import THORNodeRunePool, THORN
 from thornode_py.models.thronode_models_tcy_claimer import THORNodeTcyClaimerResult, THORNodeTcyClaimersResult
 from thornode_py.models.thronode_models_tcy_staker import THORNodeTcyStaker, THORNodeTcyStakersResult
 from thornode_py.models.thronode_models_thorname import THORNodeThorname
+from thornode_py.models.thronode_models_saver import THORNodeSaver
 
 
 class THORNodeAPI:
@@ -215,7 +216,21 @@ class THORNodeAPI:
 
     # Savers
     #-------------------------------------------------------------------------------------------------------------------
+    def saver(self, asset: str, address: str, height: Optional[int] = None) -> THORNodeSaver:
+        url = f"{self.base_url}/thorchain/pool/{asset}/saver/{address}"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return THORNodeSaver.model_validate(data)
 
+    def savers(self, asset: str, height: Optional[int] = None) -> list[THORNodeSaver]:
+        url = f"{self.base_url}/thorchain/pool/{asset}/savers"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return [THORNodeSaver.model_validate(item) for item in data]
     #-------------------------------------------------------------------------------------------------------------------
 
 
