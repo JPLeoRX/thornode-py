@@ -41,11 +41,16 @@ Below is the implementation status of the major sections of THORNode API in this
 | Thornames           | ✅         |                              |
 | Mimir               |           |                              |
 | Quote               |           |                              |
-| Invariants          |           |                              |
+| Invariants          | ✅         |                              |
 | Block               | ✅         |                              |
 | Export              |           | Not supported in current API |
 
 If you notice any discrepancy or want a section prioritized, please open an issue or PR.
+
+# TODOs
+- Exceptions handling and keeping API response's error message
+- More detailed tests
+- Fill in missing endpoints in partially implemented sections
 
 # Installation
 
