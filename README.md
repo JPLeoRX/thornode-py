@@ -30,7 +30,7 @@ Below is the implementation status of the major sections of THORNode API in this
 | Nodes               | ✅          |                              |
 | Vaults              | ✅          |                              |
 | Network             | ✅          | Partially implemented        |
-| Streaming Swap      |             |                              |
+| Streaming Swap      | ✅          |                              |
 | Clout               |             |                              |
 | Trade Unit          |             |                              |
 | Trade Account       |             |                              |

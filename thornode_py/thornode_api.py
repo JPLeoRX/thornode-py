@@ -30,6 +30,7 @@ from thornode_py.models.thronode_models_network import (
     THORNodeLastBlock,
     THORNodeVersion,
 )
+from thornode_py.models.thronode_models_streaming_swap import THORNodeStreamingSwap
 
 
 class THORNodeAPI:
@@ -424,7 +425,21 @@ class THORNodeAPI:
 
     # Streaming Swap
     #-------------------------------------------------------------------------------------------------------------------
+    def streaming_swap(self, hash: str, height: Optional[int] = None) -> THORNodeStreamingSwap:
+        url = f"{self.base_url}/thorchain/swap/streaming/{hash}"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return THORNodeStreamingSwap.model_validate(data)
 
+    def streaming_swaps(self, height: Optional[int] = None) -> list[THORNodeStreamingSwap]:
+        url = f"{self.base_url}/thorchain/swaps/streaming"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return [THORNodeStreamingSwap.model_validate(item) for item in data]
     #-------------------------------------------------------------------------------------------------------------------
 
 
