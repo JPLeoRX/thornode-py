@@ -1,13 +1,13 @@
 # thornode-py
 
-## Introduction
+# Introduction
 Python client for THORNode API
 
 THORChain has several APIs - Midgard, THORNode, Cosmos RPC, CometBFT RPC. This python client focuses on interactions with the basic THORNode API.
 
 [API Swagger Docs](https://thornode.ninerealms.com/thorchain/doc)
 
-## Progress
+# Progress
 
 Below is the implementation status of the major sections of THORNode API in this Python client:
 
@@ -47,4 +47,25 @@ Below is the implementation status of the major sections of THORNode API in this
 
 If you notice any discrepancy or want a section prioritized, please open an issue or PR.
 
-## Usage
+# Installation
+
+## Normal installation
+
+```bash
+pip install thornode-py
+```
+
+## Development installation
+
+```bash
+git clone https://github.com/jpleorx/thornode-py.git
+cd thornode-py
+pip install --editable .
+```
+
+# Links
+In case you’d like to check my other work or contact me:
+* E-Mail [leo.ertuna@gmail.com](mailto:leo.ertuna@gmail.com)
+* [GitHub](https://github.com/jpleorx)
+* [PyPI](https://pypi.org/user/JPLeoRX/)
+* [DockerHub](https://hub.docker.com/u/jpleorx)
