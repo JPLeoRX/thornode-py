@@ -42,7 +42,7 @@ Below is the implementation status of the major sections of THORNode API in this
 | Mimir               |           |                              |
 | Quote               |           |                              |
 | Invariants          |           |                              |
-| Block               |           |                              |
+| Block               | ✅         |                              |
 | Export              |           | Not supported in current API |
 
 If you notice any discrepancy or want a section prioritized, please open an issue or PR.

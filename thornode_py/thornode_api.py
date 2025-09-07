@@ -591,5 +591,12 @@ class THORNodeAPI:
 
     # Block
     #-------------------------------------------------------------------------------------------------------------------
-
+    def block(self, height: Optional[int] = None):
+        from thornode_py.models.thronode_models_block import THORNodeBlock
+        url = f"{self.base_url}/thorchain/block"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return THORNodeBlock.model_validate(data)
     #-------------------------------------------------------------------------------------------------------------------
