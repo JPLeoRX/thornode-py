@@ -21,8 +21,14 @@ from thornode_py.models.thronode_models_transaction import (
 )
 from thornode_py.models.thronode_models_vault import (
     THORNodeVault,
-    THORNodeVaultYggdrasil,
     THORNodeVaultPubkeysResponse,
+)
+from thornode_py.models.thronode_models_network import (
+    THORNodeNetwork,
+    THORNodeOutboundFee,
+    THORNodeInboundAddress,
+    THORNodeLastBlock,
+    THORNodeVersion,
 )
 
 
@@ -358,7 +364,61 @@ class THORNodeAPI:
 
     # Network
     #-------------------------------------------------------------------------------------------------------------------
+    def network(self, height: Optional[int] = None) -> THORNodeNetwork:
+        url = f"{self.base_url}/thorchain/network"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return THORNodeNetwork.model_validate(data)
 
+    def outbound_fees(self, height: Optional[int] = None) -> list[THORNodeOutboundFee]:
+        url = f"{self.base_url}/thorchain/outbound_fees"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return [THORNodeOutboundFee.model_validate(item) for item in data]
+
+    def outbound_fee(self, asset: str, height: Optional[int] = None) -> list[THORNodeOutboundFee]:
+        url = f"{self.base_url}/thorchain/outbound_fee/{asset}"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return [THORNodeOutboundFee.model_validate(item) for item in data]
+
+    def inbound_addresses(self, height: Optional[int] = None) -> list[THORNodeInboundAddress]:
+        url = f"{self.base_url}/thorchain/inbound_addresses"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return [THORNodeInboundAddress.model_validate(item) for item in data]
+
+    def lastblock(self, height: Optional[int] = None) -> list[THORNodeLastBlock]:
+        url = f"{self.base_url}/thorchain/lastblock"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return [THORNodeLastBlock.model_validate(item) for item in data]
+
+    def lastblock_chain(self, chain: str, height: Optional[int] = None) -> list[THORNodeLastBlock]:
+        url = f"{self.base_url}/thorchain/lastblock/{chain}"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return [THORNodeLastBlock.model_validate(item) for item in data]
+
+    def version(self, height: Optional[int] = None) -> THORNodeVersion:
+        url = f"{self.base_url}/thorchain/version"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return THORNodeVersion.model_validate(data)
     #-------------------------------------------------------------------------------------------------------------------
 
 
