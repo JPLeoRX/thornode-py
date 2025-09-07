@@ -32,9 +32,9 @@ Below is the implementation status of the major sections of THORNode API in this
 | Network             | ✅          | Partially implemented        |
 | Streaming Swap      | ✅          |                              |
 | Clout               |             |                              |
-| Trade Unit          |             |                              |
+| Trade Unit          | ✅          |                              |
 | Trade Account       |             |                              |
-| Secured Assets      |             |                              |
+| Secured Assets      | ✅          |                              |
 | Swap                |             |                              |
 | Queue               |             |                              |
 | TSS                 |             |                              |

@@ -31,6 +31,8 @@ from thornode_py.models.thronode_models_network import (
     THORNodeVersion,
 )
 from thornode_py.models.thronode_models_streaming_swap import THORNodeStreamingSwap
+from thornode_py.models.thronode_models_trade_unit import THORNodeTradeUnit
+from thornode_py.models.thronode_models_secured_asset import THORNodeSecuredAsset
 
 
 class THORNodeAPI:
@@ -453,7 +455,21 @@ class THORNodeAPI:
 
     # Trade Unit
     #-------------------------------------------------------------------------------------------------------------------
+    def trade_unit(self, asset: str, height: Optional[int] = None) -> THORNodeTradeUnit:
+        url = f"{self.base_url}/thorchain/trade/unit/{asset}"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return THORNodeTradeUnit.model_validate(data)
 
+    def trade_units(self, height: Optional[int] = None) -> list[THORNodeTradeUnit]:
+        url = f"{self.base_url}/thorchain/trade/units"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return [THORNodeTradeUnit.model_validate(item) for item in data]
     #-------------------------------------------------------------------------------------------------------------------
 
 
@@ -467,7 +483,21 @@ class THORNodeAPI:
 
     # Secured Asset
     #-------------------------------------------------------------------------------------------------------------------
+    def secured_asset(self, asset: str, height: Optional[int] = None) -> THORNodeSecuredAsset:
+        url = f"{self.base_url}/thorchain/securedasset/{asset}"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return THORNodeSecuredAsset.model_validate(data)
 
+    def secured_assets(self, height: Optional[int] = None) -> list[THORNodeSecuredAsset]:
+        url = f"{self.base_url}/thorchain/securedassets"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return [THORNodeSecuredAsset.model_validate(item) for item in data]
     #-------------------------------------------------------------------------------------------------------------------
 
 
