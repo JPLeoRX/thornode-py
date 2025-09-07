@@ -35,7 +35,7 @@ Below is the implementation status of the major sections of THORNode API in this
 | Trade Unit          | ✅          |                              |
 | Trade Account       |             |                              |
 | Secured Assets      | ✅          |                              |
-| Swap                |             |                              |
+| Swap                | ✅          | Partially implemented        |
 | Queue               |             |                              |
 | TSS                 |             |                              |
 | Thornames           | ✅           |                              |
