@@ -1,5 +1,3 @@
-# thornode-py
-
 # Introduction
 Python client for THORNode API
 
@@ -70,9 +68,40 @@ cd thornode-py
 pip install --editable .
 ```
 
+# Usage
+
+```python
+from thornode_py import THORNodeAPI
+
+api = THORNodeAPI()
+
+# Check that it's online
+ping = api.ping()
+
+# Check API version
+version = api.version()
+
+# Get nodes
+nodes = api.nodes()
+
+# Get pools
+pools = api.pools()
+
+# Get thorname
+thorname = api.thorname("example")
+
+# Get swap quote
+quote = api.quote_swap(
+    from_asset="BTC.BTC",
+    to_asset="ETH.ETH",
+    amount=100000,
+    destination="0x1c7b17362c84287bd1184447e6dfeaf920c31bbe",
+)
+```
+
 # Links
 In case you’d like to check my other work or contact me:
-* E-Mail [leo.ertuna@gmail.com](mailto:leo.ertuna@gmail.com)
+* E-mail: [leo.ertuna@gmail.com](mailto:leo.ertuna@gmail.com)
 * [GitHub](https://github.com/jpleorx)
 * [PyPI](https://pypi.org/user/JPLeoRX/)
 * [DockerHub](https://hub.docker.com/u/jpleorx)
