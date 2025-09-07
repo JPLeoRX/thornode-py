@@ -33,6 +33,7 @@ from thornode_py.models.thronode_models_network import (
 from thornode_py.models.thronode_models_streaming_swap import THORNodeStreamingSwap
 from thornode_py.models.thronode_models_trade_unit import THORNodeTradeUnit
 from thornode_py.models.thronode_models_secured_asset import THORNodeSecuredAsset
+from thornode_py.models.thronode_models_queue import THORNodeQueue
 
 
 class THORNodeAPI:
@@ -518,7 +519,31 @@ class THORNodeAPI:
 
     # Queue
     #-------------------------------------------------------------------------------------------------------------------
+    def queue(self, height: Optional[int] = None) -> THORNodeQueue:
+        url = f"{self.base_url}/thorchain/queue"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return THORNodeQueue.model_validate(data)
 
+    def queue_swap(self, height: Optional[int] = None):
+        from thornode_py.models.thronode_models_swap import THORNodeMsgSwap
+        url = f"{self.base_url}/thorchain/queue/swap"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return [THORNodeMsgSwap.model_validate(item) for item in data]
+
+    def queue_outbound(self, height: Optional[int] = None):
+        from thornode_py.models.thronode_models_transaction import THORNodeTxAction
+        url = f"{self.base_url}/thorchain/queue/outbound"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return [THORNodeTxAction.model_validate(item) for item in data]
     #-------------------------------------------------------------------------------------------------------------------
 
 
@@ -539,6 +564,13 @@ class THORNodeAPI:
         response.raise_for_status()
         data = response.json()
         return THORNodeThorname.model_validate(data)
+    #-------------------------------------------------------------------------------------------------------------------
+
+
+
+    # Mimir
+    #-------------------------------------------------------------------------------------------------------------------
+
     #-------------------------------------------------------------------------------------------------------------------
 
 
