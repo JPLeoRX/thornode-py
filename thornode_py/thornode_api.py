@@ -577,7 +577,136 @@ class THORNodeAPI:
 
     # Quote
     #-------------------------------------------------------------------------------------------------------------------
+    def quote_swap(
+        self,
+        from_asset: str,
+        to_asset: str,
+        amount: int,
+        destination: Optional[str] = None,
+        refund_address: Optional[str] = None,
+        streaming_interval: Optional[int] = None,
+        streaming_quantity: Optional[int] = None,
+        tolerance_bps: Optional[int] = None,
+        liquidity_tolerance_bps: Optional[int] = None,
+        affiliate_bps: Optional[int] = None,
+        affiliate: Optional[str] = None,
+        height: Optional[int] = None,
+    ):
+        from thornode_py.models.thronode_models_quote import THORNodeQuoteSwap
+        url = f"{self.base_url}/thorchain/quote/swap"
+        params = {
+            "from_asset": from_asset,
+            "to_asset": to_asset,
+            "amount": amount,
+        }
+        if destination is not None:
+            params["destination"] = destination
+        if refund_address is not None:
+            params["refund_address"] = refund_address
+        if streaming_interval is not None:
+            params["streaming_interval"] = streaming_interval
+        if streaming_quantity is not None:
+            params["streaming_quantity"] = streaming_quantity
+        if tolerance_bps is not None:
+            params["tolerance_bps"] = tolerance_bps
+        if liquidity_tolerance_bps is not None:
+            params["liquidity_tolerance_bps"] = liquidity_tolerance_bps
+        if affiliate_bps is not None:
+            params["affiliate_bps"] = affiliate_bps
+        if affiliate is not None:
+            params["affiliate"] = affiliate
+        if height is not None:
+            params["height"] = height
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return THORNodeQuoteSwap.model_validate(data)
 
+    # Saver feature doesn't work currently
+    def quote_saver_deposit(self, asset: str, amount: int, height: Optional[int] = None):
+        from thornode_py.models.thronode_models_quote import THORNodeQuoteSaverDeposit
+        url = f"{self.base_url}/thorchain/quote/saver/deposit"
+        params = {"asset": asset, "amount": amount}
+        if height is not None:
+            params["height"] = height
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return THORNodeQuoteSaverDeposit.model_validate(data)
+
+    # Saver feature doesn't work currently
+    def quote_saver_withdraw(
+        self, asset: str, address: str, withdraw_bps: int, height: Optional[int] = None
+    ):
+        from thornode_py.models.thronode_models_quote import THORNodeQuoteSaverWithdraw
+        url = f"{self.base_url}/thorchain/quote/saver/withdraw"
+        params = {"asset": asset, "address": address, "withdraw_bps": withdraw_bps}
+        if height is not None:
+            params["height"] = height
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return THORNodeQuoteSaverWithdraw.model_validate(data)
+
+    # Loans are currently paused
+    def quote_loan_open(
+        self,
+        from_asset: str,
+        amount: int,
+        to_asset: str,
+        destination: str,
+        min_out: Optional[str] = None,
+        affiliate_bps: Optional[int] = None,
+        affiliate: Optional[str] = None,
+        height: Optional[int] = None,
+    ):
+        from thornode_py.models.thronode_models_quote import THORNodeQuoteLoanOpen
+        url = f"{self.base_url}/thorchain/quote/loan/open"
+        params = {
+            "from_asset": from_asset,
+            "amount": amount,
+            "to_asset": to_asset,
+            "destination": destination,
+        }
+        if min_out is not None:
+            params["min_out"] = min_out
+        if affiliate_bps is not None:
+            params["affiliate_bps"] = affiliate_bps
+        if affiliate is not None:
+            params["affiliate"] = affiliate
+        if height is not None:
+            params["height"] = height
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return THORNodeQuoteLoanOpen.model_validate(data)
+
+    # Loans are currently paused
+    def quote_loan_close(
+        self,
+        from_asset: str,
+        repay_bps: int,
+        to_asset: str,
+        loan_owner: str,
+        min_out: Optional[str] = None,
+        height: Optional[int] = None,
+    ):
+        from thornode_py.models.thronode_models_quote import THORNodeQuoteLoanClose
+        url = f"{self.base_url}/thorchain/quote/loan/close"
+        params = {
+            "from_asset": from_asset,
+            "repay_bps": repay_bps,
+            "to_asset": to_asset,
+            "loan_owner": loan_owner,
+        }
+        if min_out is not None:
+            params["min_out"] = min_out
+        if height is not None:
+            params["height"] = height
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return THORNodeQuoteLoanClose.model_validate(data)
     #-------------------------------------------------------------------------------------------------------------------
 
 

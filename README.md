@@ -5,6 +5,8 @@ Python client for THORNode API
 
 THORChain has several APIs - Midgard, THORNode, Cosmos RPC, CometBFT RPC. This python client focuses on interactions with the basic THORNode API.
 
+Built for API version 3.10.0.
+
 [API Swagger Docs](https://thornode.ninerealms.com/thorchain/doc)
 
 # Progress
@@ -40,7 +42,7 @@ Below is the implementation status of the major sections of THORNode API in this
 | TSS                 |           |                              |
 | Thornames           | ✅         |                              |
 | Mimir               |           |                              |
-| Quote               |           |                              |
+| Quote               | ✅         |                              |
 | Invariants          | ✅         |                              |
 | Block               | ✅         |                              |
 | Export              |           | Not supported in current API |
