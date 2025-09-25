@@ -5,6 +5,7 @@ from thornode_py.models.thronode_models_bank import THORNodeBalancesResponse
 from thornode_py.models.thronode_models_health import THORNodePing
 from thornode_py.models.thronode_models_liquidiry_provider import THORNodeLiquidityProvider, THORNodeLiquidityProviderSummary
 from thornode_py.models.thronode_models_node import THORNodeNode
+from thornode_py.models.thronode_models_oracle import THORNodeOraclePrice, THORNodeOraclePrices
 from thornode_py.models.thronode_models_pool import THORNodePool, THORNodeDerivedPool
 from thornode_py.models.thronode_models_pool_slip import THORNodePoolSlip
 from thornode_py.models.thronode_models_rune_pool import THORNodeRunePool, THORNodeRuneProvider
@@ -154,6 +155,26 @@ class THORNodeAPI:
         response.raise_for_status()
         data = response.json()
         return [THORNodeLiquidityProviderSummary.model_validate(item) for item in data]
+    #-------------------------------------------------------------------------------------------------------------------
+
+
+    # Oracle
+    #-------------------------------------------------------------------------------------------------------------------
+    def price(self, symbol: str, height: Optional[int] = None) -> THORNodeOraclePrice:
+        url = f"{self.base_url}/thorchain/oracle/price/{symbol}"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return THORNodeOraclePrice.model_validate(data)
+
+    def prices(self, height: Optional[int] = None) -> THORNodeOraclePrices:
+        url = f"{self.base_url}/thorchain/oracle/prices"
+        params = {"height": height} if height is not None else None
+        response = requests.get(url, params=params, timeout=self.timeout)
+        response.raise_for_status()
+        data = response.json()
+        return THORNodeOraclePrices.model_validate(data)
     #-------------------------------------------------------------------------------------------------------------------
 
 

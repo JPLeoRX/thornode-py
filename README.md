@@ -3,7 +3,7 @@ Python client for THORNode API
 
 THORChain has several APIs - Midgard, THORNode, Cosmos RPC, CometBFT RPC. This python client focuses on interactions with the basic THORNode API.
 
-Built for API version 3.10.0.
+Built for API version 3.11.0.
 
 [API Swagger Docs](https://thornode.ninerealms.com/thorchain/doc)
 
@@ -20,7 +20,7 @@ Below is the implementation status of the major sections of THORNode API in this
 | Pool Slip           | ✅         |                                                 |
 | Liquidity Providers | ✅        |                                                 |
 | Codes               |           | Not supported in current API                    |
-| Oracle              |           | Not supported in current API                    |
+| Oracle              | ✅        |                                                 |
 | TCY Stakers         | ✅        |                                                 |
 | TCY Claimers        | ✅        |                                                 |
 | RUNE Pool           | ✅        |                                                 |
